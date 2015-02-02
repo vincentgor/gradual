@@ -19,6 +19,7 @@ public class UploadAction extends ActionSupport {
 	private String uploadContentType;    //文件类型
 	private String uploadFileName;      //文件名
 	private String savePath;            //保存的路径
+	private String allowTypes;     //允许上传的文件类型
 	public String getTitle() {
 		return title;
 	}
@@ -49,6 +50,13 @@ public class UploadAction extends ActionSupport {
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
+	public String getAllowTypes() {
+		return allowTypes;
+	}
+	public void setAllowTypes(String allowTypes) {
+		this.allowTypes = allowTypes;
+	}
+	
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -66,4 +74,28 @@ public class UploadAction extends ActionSupport {
 		System.out.println("------already uploaded-----");
 		return SUCCESS;
 	}
+	
+	/*
+	 * 过滤文件类型
+	 */
+//	public String filterTypes(String[] types) {
+//		//希望上传的文件类型
+//		String fileType = getUploadContentType();
+//		for (String type:types) {
+//			if(type.equals(fileType))
+//				return null;
+//		}
+//		return INPUT;
+//	}
+	
+	/*
+	 * 执行输入校验
+	 */
+//	public void validate() {
+//		String filterResult = filterTypes(getAllowTypes().split(","));
+//		if(filterResult != null) {
+//			//添加fieldError
+//			addFieldError("upload", "你要上传的文件类型不正确");
+//		}
+//	}
 }

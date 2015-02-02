@@ -1,33 +1,17 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'upload.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+    <title>上传文件</title>
   </head>
-  
   <body>
-    <form action="upload.action" method="post" enctype="multipart/form-data">
-      title: <input type="text" name="title" /><br />
-      file:  <input type="file" name="upload" /><br />
-      <input value="upload" type="submit"/>
-    </form>
-
+  	<span style="color:red"><s:fielderror /></span>
+  	<s:form action="upload.action" enctype="multipart/form-data" method="post">
+      <s:textfield name="title" label="文件标题" /><br />
+      <s:file name="upload" label="选择文件" /><br />
+      <s:submit value="上传" />
+  	</s:form>
   </body>
 </html>
