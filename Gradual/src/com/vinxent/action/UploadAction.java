@@ -1,3 +1,6 @@
+/*
+ * 上传文件action， 一次可以上传多个文件，支持中文命名的文件上传
+ */
 package com.vinxent.action;
 
 import java.io.File;
@@ -79,6 +82,8 @@ public class UploadAction extends ActionSupport {
 		System.out.println("------already uploaded-----");
 		return SUCCESS;
 	}
+	
+	///一下几个函数，由于使用struct2的文件拦截上传功能，故在此可以不用写一下代码
 	
 	/*
 	 * 过滤文件类型

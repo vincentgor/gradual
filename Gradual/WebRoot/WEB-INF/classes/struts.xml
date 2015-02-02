@@ -14,6 +14,13 @@
 	<constant name="struts.i18n.encoding" value="GBK"/>
 	<!-- 所有的Action定义都应该放在package下 -->
 	<package name="gradual" extends="struts-default">
+	
+		<!-- 配置登录action -->
+		<action name="login" class="com.vinxent.action.LoginAction">
+			<result>/html/rawDown.html</result>
+			<result name="login">/jsp/login.jsp</result>
+		</action>
+	
 	  	<!-- 配置处理文件上传的action -->
 	  	<action name="upload" class="com.vinxent.action.UploadAction">
 	  		<!-- 配置fileUpload的拦截器 -->
@@ -31,5 +38,37 @@
 	    	<result>/jsp/succ.jsp</result>
 	    	<result name="input">/jsp/upload.jsp</result>
 	  	</action>
+	  	
+	  	<action name="download_free" class="com.vinxent.action.FileDownloadAction">
+	  		<!-- 指定资源下载地址 -->
+	  		<param name="inputPath">/images/Hydrangeas.jpg</param>
+	  		<!-- 配置结果类型为stream的结果 -->
+	  		<result name="success" type="stream">
+	  			<!-- 指定文件的下载类型 -->
+	  			<param name="contentType">image/jpg</param>
+	  			<!-- 指定由getTargetFile()方法返回被下载文件的InputStream -->
+	  			<param name="inputName">targetFile</param>
+	  			<param name="contentDisposition">filename="Hydrangeas.jpg"</param>
+	  			<!-- 指定下载文件的缓冲大小 -->
+	  			<param name="bufferSize">4096</param>
+	  		</result>
+	  	</action>
+	  	
+	  	<action name="download_auth" class="com.vinxent.action.AuthorityDownAction">
+	  		<!-- 指定资源下载地址 -->
+	  		<param name="inputPath">/images/捕获.png</param>
+	  		<!-- 配置结果类型为stream的结果 -->
+	  		<result name="success" type="stream">
+	  			<!-- 指定文件的下载类型 -->
+	  			<param name="contentType">image/png</param>
+	  			<!-- 指定由getTargetFile()方法返回被下载文件的InputStream -->
+	  			<param name="inputName">targetFile</param>
+	  			<param name="contentDisposition">filename="捕获.png"</param>
+	  			<!-- 指定下载文件的缓冲大小 -->
+	  			<param name="bufferSize">4096</param>
+	  		</result>
+	  		<result name="login">/jsp/login.jsp</result>
+	  	</action>
+	  	
 	</package>
 </struts>
