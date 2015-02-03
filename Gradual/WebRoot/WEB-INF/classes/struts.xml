@@ -15,14 +15,36 @@
 	<!-- 所有的Action定义都应该放在package下 -->
 	<package name="gradual" extends="struts-default">
 	
+		<!-- 定义一系列的拦截器 -->
+		<interceptors>
+			<interceptor name="time" class="com.vinxent.interceptor.TimerInterceptor"></interceptor>
+			<interceptor name="test" class="com.vinxent.interceptor.MyInterceptor"></interceptor>
+			<interceptor name="auth" class="com.vinxent.interceptor.AuthenticationInterceptor"></interceptor>
+			<interceptor name="public" class="com.vinxent.interceptor.PublicIntercept"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="public"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="login">/jsp/login.jsp</result>
+		</global-results>
+	
 		<!-- 配置登录action -->
 		<action name="login" class="com.vinxent.action.LoginAction">
+			<!-- 使用拦截器 -->
+			<interceptor-ref name="time"></interceptor-ref>
+			<interceptor-ref name="test"></interceptor-ref>
+			<!-- 注意添加这个默认拦截器，否则会空指针报错 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result>/html/rawDown.html</result>
 			<result name="login">/jsp/login.jsp</result>
 		</action>
 	
 	  	<!-- 配置处理文件上传的action -->
 	  	<action name="upload" class="com.vinxent.action.UploadAction">
+	  		<interceptor-ref name="auth"></interceptor-ref>
 	  		<!-- 配置fileUpload的拦截器 -->
 	  		<interceptor-ref name="fileUpload">
 	  			<!-- 设置允许上传的文件类型 -->
@@ -68,6 +90,14 @@
 	  			<param name="bufferSize">4096</param>
 	  		</result>
 	  		<result name="login">/jsp/login.jsp</result>
+	  	</action>
+	  	
+	  	<action name="public" class="com.vinxent.action.PublicAction">
+	  		<!-- 使用拦截器 -->
+	  		<interceptor-ref name="myStack"></interceptor-ref>
+	  		<!-- 注意添加这个默认拦截器，否则会空指针报错 -->
+		<!-- 	<interceptor-ref name="defaultStack"></interceptor-ref> -->
+	  		<result>/jsp/article.jsp</result>
 	  	</action>
 	  	
 	</package>
